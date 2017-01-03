@@ -1,0 +1,56 @@
+<div class="container">
+	<div class="row header">
+		<div class="col-sm-3 header-text bold">Cows and Bulls</div>
+		<div class="col-sm-3">
+			<div id="usernameInfo" class="v-mid pointer"
+				onclick="profileClicked()">
+				<img alt="" src="images/ic_person_black_24dp_1x.png" id="photoPic"
+					class="profile-pic"> <span class="bold" id="username"
+					onclick="onUsernameClick()"></span>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div id="" class="v-mid pointer" onclick="notifications()"
+				style="height: 35px; font-size: large">
+				<span class="glyphicon glyphicon-bell"></span> <span class="badge"
+					id="notifyCount"></span>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" placeholder="Search...">
+		</div>
+		<div class="col-sm-2">
+			<div class="btn-group" role="group" aria-label="...">
+				<button type="button" class="btn btn-default dropdown-toggle no-box"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-option-vertical"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">Account</a></li>
+					<li><a href="#">Settings</a></li>
+					<li><a href="#">How to Play</a></li>
+					<li><a href="#">Feedback</a></li>
+					<li><a href="#">About</a></li>
+					<li role="separator" class="divider"></li>
+					<li onclick="logout()"><a href="">Log out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$("#usernameInfo").height($(".header").height() + "px");
+
+		function logout() {
+			firebase.auth().signOut().then(function() {
+				// Sign-out successful.
+			}, function(error) {
+				// An error happened.
+			});
+		}
+
+		function profileClicked() {
+			nav("profile.html");
+		}
+	</script>
+</div>

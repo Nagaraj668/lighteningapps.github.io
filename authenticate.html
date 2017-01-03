@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Authenticate</title>
+<link rel="icon" type="text/icon" href="images/favicon.ico">
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/authenticate.js"></script>
+
+</head>
+<body>
+
+	<h3 class="text-center">
+		<img alt="" src="images/logo.png" width="40"> Lightening Apps
+	</h3>
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4 box" style="padding: 30px; height: 500px">
+		<h4 class="text-center">Sign In or Create Account</h4>
+		<br>
+		<div>
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#sign-in"
+					aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
+				<li role="presentation"><a href="#sign-up"
+					aria-controls="profile" role="tab" data-toggle="tab">Sign Up</a></li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="sign-in">
+					<br><br> <input type="text" id="emailId" class="form-control"
+						placeholder="Email ID" /> <br> <input type="password"
+						id="password" class="form-control" placeholder="Password" /> <br>
+					<button class="btn btn-primary bold"
+						style="float: right; margin-left: 25px" onclick="login()">LOGIN</button>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="sign-up">
+					<br><br> <input type="text" id="emailId" class="form-control"
+						placeholder="Email ID" /> <br> <input type="password"
+						id="password" class="form-control" placeholder="Password" /> <br>
+					<button class="btn btn-default bold" style="float: right;"
+						onclick="register()">REGISTER</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

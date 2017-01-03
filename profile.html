@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Profile</title>
+
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/header.js"></script>
+<script src="js/profile.js"></script>
+
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div id="header"></div>
+	</div>
+	<br>
+	<div class="container">
+		<div class="row">
+			<h4 class="text-primary">Profile</h4>
+			<div class="list-group col-sm-3">
+				<a href="#" class="list-group-item active"
+					data-url="name-update.html">Name</a> <a href="#"
+					class="list-group-item" data-url="profile-photo-update.html">Profile
+					Photo</a> <a href="#" class="list-group-item"
+					data-url="change-password.html">Change Password</a>
+				<script type="text/javascript">
+					$.get({
+						url : 'name-update.html',
+						cache : false
+					}, function(data) {
+						$("#activeArea").html(data);
+						updatedataUrl("name-update.html");
+					});
+					$(".list-group .list-group-item").click(function() {
+						$(".active").removeClass("active");
+						$(this).addClass("active");
+						var dataUrl = $(this).attr('data-url');
+						updatedataUrl(dataUrl);
+						$.get({
+							url : dataUrl,
+							cache : false
+						}, function(data) {
+							$("#activeArea").html(data);
+							updateValues(dataUrl);
+						});
+					});
+				</script>
+			</div>
+			<div class="col-sm-9">
+				<div class="box-1"
+					style="height: 300px; margin-top: 0px !important;" id="activeArea">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Email Verification</title>
+
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/header.js"></script>
+<script src="js/email-verify.js"></script>
+
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="row">
+
+			<h3>Cows and Bulls</h3>
+			<div class="alert alert-success" id="alertMsg">
+				<h2 class="text-success">Registration Successful</h2>
+				<br>
+				<strong>Hey! Just one step away, We have sent you
+					verification link to your email</strong> <br>
+
+				<p>Please login to your email and click verification link to proceed</p>
+			</div>
+			<div class="col-sm-4">
+				<span class="label label-primary" id="verifyStatus">Verification
+					Pending </span>
+				<p id="emailId"></p>
+				<input type="password" class="form-control" id="password"
+					placeholder="Enter password"><br>
+				<button class="btn btn-primary bold" onclick="checkNow()" id="checkNowBtn">I VERIFIED, CHECK
+					NOW</button>
+				<button class="btn btn-default bold" onclick="logout()" id="logoutBtn"
+					style="margin-left: 25px">SIGN OUT</button>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

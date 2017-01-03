@@ -1,0 +1,1 @@
+create table person (id int primary key auto_increment, name varchar(100), email varchar (100), mobile varchar (100), address varchar (500), date_of_birth date ,user_password varchar (20))

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Notifications</title>
+
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/header.js"></script>
+<script src="js/notifications.js"></script>
+
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div id="header"></div>
+	</div>
+
+	<div class="container">
+		<h4 class="text-primary">Notifications</h4>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="list-group" id="notifyList">
+					<!-- <a
+						onclick="onNotificationItemClick(this, 0, 'Find System Word', 'Vinod', 'hdd4NIUCvkNx2oumGRZdmNdNYn62', 'https://firebasestorage.googleapis.com/v0/b/cows-and-bulls-444f5.appspot.com/o/users%2Fhdd4NIUCvkNx2oumGRZdmNdNYn62%2FprofilePicture.png?alt=media&amp;token=c114534d-d652-4e7b-97f8-1195ec1c39aa', 'Lets play and see who finds system word first', 'Oct 25')"
+						href="#" class="list-group-item active"><div class="row">
+							<div class="col-sm-2">
+								<img alt=""
+									src="https://firebasestorage.googleapis.com/v0/b/cows-and-bulls-444f5.appspot.com/o/users%2Fhdd4NIUCvkNx2oumGRZdmNdNYn62%2FprofilePicture.png?alt=media&amp;token=c114534d-d652-4e7b-97f8-1195ec1c39aa"
+									width="50">
+							</div>
+							<div class="col-sm-10">
+								<div class="col-sm-8 no-padd">
+									<h4 class="list-group-item-heading bold">Vinod</h4>
+								</div>
+								<div class="col-sm-3 no-padd">Oct 25</div>
+								<div class="col-sm-1 no-padd">
+									<button type="button" class="close"
+										onclick="closeNotifyItem(this, '-KUwVmke2gukUmXjurDh')"
+										data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+
+								<p class="col-sm-12 no-padd list-group-item-text">Find System Word</p>
+							</div>
+						</div></a> -->
+				</div>
+			</div>
+			<div class="col-sm-8" id="reqDetails">
+				<p class="text-primary bold" id="requestorName"></p>
+				<img alt="" src="images/ic_account_circle_black_48dp_2x.png"
+					width="100" id="reqPhoto">
+				<p class="text-default" id="reqOn"></p>
+				<p class="text-primary" id="message"></p>
+
+				<button class="btn btn-success bold" onclick="letsPlay()">SURE LETS PLAY NOW</button>
+				<button class="btn btn-danger bold" onclick="rejectRequest()">I DONT WANT TO PLAY</button>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

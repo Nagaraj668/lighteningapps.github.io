@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome to Cows and Bulls</title>
+
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/header.js"></script>
+<script src="js/game.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div id="header"></div>
+	</div>
+	<br>
+	<div class="container">
+		<div data-example-id="togglable-tabs">
+			<ul class="nav nav-tabs" id="myTabs" role="tablist">
+				<li role="presentation" class="active"><a href="#home"
+					id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
+					aria-expanded="false">Recent Matches</a></li>
+				<li role="presentation" class=""><a href="#you-vs-friend"
+					id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
+					aria-expanded="false">You vs Friend</a></li>
+				<li role="presentation" class="dropdown"><a href="#"
+					class="dropdown-toggle" id="myTabDrop1" data-toggle="dropdown"
+					aria-controls="myTabDrop1-contents" aria-expanded="false">Friends
+						<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" aria-labelledby="myTabDrop1"
+						id="myTabDrop1-contents">
+						<li class=""><a href="#myFriends" role="tab"
+							id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1"
+							aria-expanded="false">My Friends</a></li>
+						<li class=""><a href="#globalFriends" role="tab"
+							onclick="onGlobalFriendsShown()" id="dropdown2-tab"
+							data-toggle="tab" aria-controls="dropdown2" aria-expanded="true">Global
+								Players</a></li>
+					</ul></li>
+				<li role="presentation" class=""><a href="#stats" id="home-tab"
+					role="tab" data-toggle="tab" aria-controls="home"
+					aria-expanded="false">Statistics</a></li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade active in" role="tabpanel" id="home"
+					aria-labelledby="home-tab">
+					<p>Recent matches</p>
+				</div>
+				<div class="tab-pane fade " role="tabpanel" id="you-vs-friend"
+					aria-labelledby="home-tab">
+					<br>
+					<div class="row">
+						<div class="col-sm-4">
+							<p class="text-primary">Choose game mode</p>
+							<div class="btn-group" role="group" aria-label="...">
+								<button type="button" class="btn btn-default no-box bold find"
+									onclick="onSystemWord()">Find system's word</button>
+								<button type="button" class="btn btn-default no-box bold find">Find
+									opponent's word</button>
+							</div>
+						</div>
+						<div class="col-sm-2" id="choose-word">
+							<p class="text-primary">OK, Choose Word</p>
+							<div class="input-group" id="wordWrapper">
+								<input type="text" class="form-control" placeholder="Word"
+									value="code" id="word" maxlength="4"
+									style="text-transform: uppercase"><span
+									class="input-group-btn">
+									<button class="btn btn-primary bold no-box"
+										onclick="saveWord()">OK</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-4" id="choose-player">
+							<p class="text-primary">OK, Choose Player to play with</p>
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button type="button"
+										class="btn btn-default no-box bold player-btn"
+										aria-label="Bold">My Friends</button>
+									<button type="button"
+										class="btn btn-primary no-box bold player-btn"
+										aria-label="Italic">Global Players</button>
+								</div>
+								<input class="form-control"
+									aria-label="Text input with multiple buttons"
+									placeholder="Type player name to filter..." id="playerName">
+							</div>
+							<br>
+							<div class="row" id="player-wrapper-2"></div>
+						</div>
+						<div class="col-sm-4" id="finalizerBlock">
+							<p class="text-primary" id="selectedPlayerName"></p>
+							<img alt="" src="" id="selectedPlayerPhoto" width="100"><br>
+							<br>
+							<p id="selectedPlayerStatus" class="label label-primary">Loading
+								Status...</p>
+							<br> <br>
+							<button class="btn btn-primary bold" onclick="sendGameRequest()">SEND
+								GAME REQUEST</button>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" role="tabpanel" id="myFriends"
+					aria-labelledby="dropdown1-tab">
+					<p>My Friends</p>
+				</div>
+				<div class="tab-pane fade in" role="tabpanel" id="globalFriends"
+					aria-labelledby="dropdown2-tab">
+					<p>Global Friends</p>
+					<div class="row" id="player-wrapper"></div>
+				</div>
+				<div class="tab-pane fade active" role="tabpanel" id="stats"
+					aria-labelledby="home-tab">
+					<p>Statistics</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

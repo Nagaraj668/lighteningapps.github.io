@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cows And Bulls</title>
+<link rel="icon" type="text/icon" href="images/favicon.ico">
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/index.js"></script>
+
+</head>
+<body>
+
+	<div class="container">
+
+		<h3 class="text-center">
+			<img alt="" src="images/logo.png" width="40"> Lightening Apps
+		</h3>
+
+		<div class="text-center" id="yet-to-login">
+			<p class="text-primary bold pointer"
+				onclick="onAuthenticateClicked()">Login / Register</p>
+		</div>
+
+		<div class="text-center" id="logged-in" onclick="profileClicked()">
+			<img alt="" src="images/ic_person_black_24dp_2x.png"
+				id="profilePhoto" width="40"> <span class="bold text-primary" id="displayName"></span>
+		</div>
+
+		<br> <br>
+
+		<div class="row">
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/chat-icon.png" width="125"
+						height="125"> <br> <br>
+					<div class="app-name-label bold text-warning">Chat</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/cows-bulls-logo.jpg" width="125"
+						height="125"> <br> <br>
+					<div class="app-name-label bold text-default">cows and bulls</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/hand-cricket-logo.png"
+						width="125" height="125"> <br> <br>
+					<div class="app-name-label bold text-warning">hand cricket</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/notes-logo.png" width="125"
+						height="125"> <br> <br>
+					<div class="app-name-label bold text-info">notes</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/quiz-logo.png" width="125"
+						height="125"> <br> <br>
+					<div class="app-name-label bold text-danger">quiz</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/pink-question-mark-logo.png"
+						width="125" height="125"> <br> <br>
+					<div class="app-name-label bold text-primary">clear doubts</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/folder-logo.png" width="125"
+						height="125"> <br> <br>
+					<div class="app-name-label bold text-default">file saver</div>
+				</div>
+			</div>
+			<div class="col-sm-4 col-md-3">
+				<div class="box-1" align="center">
+					<br> <img alt="" src="images/heart-beat-icon.png" width="125"
+						height="125"> <br> <br>
+					<div class="app-name-label bold text-info">health care</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
