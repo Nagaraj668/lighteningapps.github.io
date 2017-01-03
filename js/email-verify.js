@@ -8,7 +8,7 @@ authenticate(function(user) {
 		$("#emailId").hide();
 		$("#alertMsg").html("<p>"+user.email+"</p><h2>Your email has been verified</h2><br> <p> Taking you to games page in few seconds...<p>");
 		setInterval(function() {
-			nav("additional-details.html");	
+			nav("index.html");	
 		}, 5000);
 	}
 	$("#verifyStatus").text("Verification pending");

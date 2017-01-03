@@ -67,6 +67,10 @@ function nav(path) {
 	window.location.href = path;
 }
 
+function E(msg){
+	L(msg);
+}
+
 var AuthType = {
 	SESSION_RESUME : 0,
 	SIGN_IN : 1,

@@ -1,11 +1,15 @@
 
 $(document).ready(function() {
-	$("#loggedin").hide();
+	$("#logged-in").hide();
 });
 
 function onAuthenticateClicked() {
 	localStorage.redirectTo = INDEX_PAGE;
 	nav("authenticate.html");
+}
+
+function profileClicked() {
+	nav("profile.html");
 }
 
 var thisUser;
@@ -15,11 +19,10 @@ var photoUrl;
 authenticate(function(user) {
 	thisUser = user;
 	if (user != null) {
-		A(J(user));
 		name = user.displayName;
 		photoUrl = user.photoURL;
 		$("#yet-to-login").hide();
-		$("#loggedin").show();
+		$("#logged-in").show();
 	}
 	if (name == null || name == "null" || name == "") {
 		name = "User";

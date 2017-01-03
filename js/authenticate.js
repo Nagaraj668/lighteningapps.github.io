@@ -1,6 +1,7 @@
 
 var authType = AuthType.SESSION_RESUME;
 var user;
+var displayName;
 
 function login() {
 	var emailId = $("#emailId").val();
@@ -12,7 +13,7 @@ function login() {
 	}
 	if (password == "" || password == null) {
 		$("#password").focus();
-		A("Please enter Password");
+		A("Please enter password");
 		return;
 	}
 	SL("Signing In");
@@ -41,11 +42,21 @@ authenticate(function(user){
 		  }).then(function(){
 			  SL("Success! Sending link to verify");
 			  var user = firebase.auth().currentUser;
-			  user.sendEmailVerification().then(function() {
-				  nav("email-verify.html");
-			  }, function(error) {
-				  A("Error in sending email verification link");
-			  });
+			  
+			  user.updateProfile({
+				  'displayName': displayName,
+				  'photoURL': "https://example.com/jane-q-user/profile.jpg"
+				}).then(function() {
+				  // Update successful.
+					user.sendEmailVerification().then(function() {
+						  nav("email-verify.html");
+					  }, function(error) {
+						  A("Error in sending email verification link");
+					  });
+				}, function(error) {
+				  // An error happened.
+				});
+			  
 		  }).catch(function(){
 			  A("Registration Faild");
 		  });
@@ -57,18 +68,39 @@ authenticate(function(user){
 }, 0);
 
 function register() {
-	var emailId = $("#emailId").val();
-	var password = $("#password").val();
+	var emailId = $("#email-id").val();
+	var password = $("#password-reg").val();
+	var confirmPassword = $("#confirm-password").val();
+	displayName = $("#displayName").val();
+	
+	if (displayName == "" || displayName == null) {
+		$("#displayName").focus();
+		A("Please enter your good name");
+		return;
+	}
 	if (emailId == "" || emailId == null) {
-		$("#emailId").focus();
+		$("#email-id").focus();
 		A("Please enter Email Id");
 		return;
 	}
 	if (password == "" || password == null) {
-		$("#password").focus();
-		A("Please enter Password");
+		$("#password-reg").focus();
+		A("Please enter password");
 		return;
 	}
+	if (confirmPassword == "" || confirmPassword == null) {
+		$("#confirm-password").focus();
+		A("Please enter confirm password");
+		return;
+	}
+	if (confirmPassword != password) {
+		$("#confirm-password").val(null);
+		$("#password-reg").val(null);
+		$("#password-reg").focus();
+		A("Password and confirm password mis match");
+		return;
+	}
+
 	authType = AuthType.SIGN_UP;
 	
 	SL("Creating Account");
