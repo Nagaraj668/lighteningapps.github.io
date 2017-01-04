@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cows And Bulls</title>
+<link rel="icon" type="text/icon" href="images/favicon.ico">
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<script src="js/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/cows-and-bulls.js"></script>
+
+</head>
+<body>
+
+	<div class="container">
+
+		<h3 class="text-center">
+			<img alt="" src="images/logo.png" width="40" onclick="goHome()">
+			<span onclick="goHome()">Lightening Apps</span>
+		</h3>
+
+		<div class="row">
+			<div class="col-sm-4">
+				<img alt="" src="images/cows-bulls-logo.jpg" width="30"> <span
+					class="app-heading bold" style="margin-left: 10px">cows and
+					bulls</span>
+			</div>
+			<div class="col-sm-4 col-sm-offset-4" align="right">
+				<div class="btn-group">
+					<button type="button"
+						class="btn btn-default dropdown-toggle no-border"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img alt="" src="images/ic_person_black_24dp_2x.png" class=""
+							id="profilePhoto" width="40"> <span
+							class="bold text-primary" id="displayName"
+							onclick="profileClicked()"></span> <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="profile.html">Profile</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#" onclick="signOut()">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-sm-12">
+				<div>
+
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a
+							href="#recent-games" aria-controls="recent-games" role="tab"
+							data-toggle="tab">Recent Games</a></li>
+						<li role="presentation"><a href="#start-new-game"
+							aria-controls="start-new-game" role="tab" data-toggle="tab">New
+								Game</a></li>
+						<li role="presentation"><a href="#events"
+							aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
+						<li role="presentation"><a href="#my-friends"
+							aria-controls="my-friends" role="tab" data-toggle="tab">My
+								Friends</a></li>
+						<li role="presentation"><a href="#all-players"
+							aria-controls="all-players" role="tab" data-toggle="tab">All
+								Players</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active"
+							id="recent-games">
+							<br>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="start-new-game">
+							<br>
+							<div class="row">
+								<div class="col-sm-4">
+									<p>Think a four letter word and enter below</p>
+									<input type="text" class="form-control caps text-center"
+										maxlength="4" id="word" placeholder="My word">
+								</div>
+								<div class="col-sm-8"></div>
+								<div class="col-sm-12">
+									<p>Select Player</p>
+									<div class="btn-group" role="group" aria-label="...">
+										<button type="button" class="btn btn-default  btn-tab"
+											onclick="tabClicked(this)">RECENT</button>
+										<button type="button" class="btn btn-default btn-tab"
+											onclick="tabClicked(this)">FRIENDS</button>
+										<button type="button"
+											class="btn btn-default btn-primary btn-tab"
+											onclick="tabClicked(this)">ALL</button>
+									</div>
+									<br> <br>
+									<div class="row" id="players">
+										<!-- <div class="col-sm-4 col-md-3">
+											<div class="box padding-sm">
+												<p></p>
+											</div>
+										</div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane fade" id="events">Events</div>
+						<div role="tabpanel" class="tab-pane fade" id="my-friends">...</div>
+						<div role="tabpanel" class="tab-pane fade" id="all-players">...</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+</body>
+</html>

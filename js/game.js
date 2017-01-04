@@ -1,23 +1,3 @@
-var name, email, photoUrl, uid;
-authenticate(function(user) {
-	var user = firebase.auth().currentUser;
-	if (user != null) {
-		name = user.displayName;
-		email = user.email;
-		photoUrl = user.photoURL;
-		uid = user.uid;
-	}
-	if (name == null || name == "null" || name == "") {
-		name = "User";
-	}
-	$("#username").text(name);
-	if (photoUrl != null) {
-		$("#photoPic").attr('src', photoUrl);
-	}
-}, function() {
-	nav("index.html");
-});
-
 $(document).ready(function() {
 	$('#choose-word').hide();
 	$('#choose-player').hide();

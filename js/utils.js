@@ -27,6 +27,10 @@ function authenticate(success, failure, emailVerifyFlag) {
 			});
 }
 
+function signOut() {
+	firebase.auth().signOut();
+}
+
 function requestStatus(uid, myuid, callback) {
 	var rand = random();
 	firebase.database().ref().child("users").child(uid).child("request-status")
@@ -135,6 +139,34 @@ function getShortDate() {
 	return getMonthShortName() + " " + date.getDate();
 }
 
+function isDefined(obj) {
+	var flag = false;
+	if(obj != undefined && obj != null){
+		flag = true;
+	}
+	return flag;
+}
+
+function isUndefined(obj) {
+	return !isDefined(obj);
+}
+
+function goHome() {
+	nav("index.html");
+}
+
 // constants
 
 var INDEX_PAGE = "index.html";
+
+var CHAT_APP = 1;
+var COWS_AND_BULLS_APP = 2;
+var HAND_CRICKET_APP = 3;
+var NOTES_APP = 4;
+var QUIZ_APP = 5;
+var CLEAT_DOUBTS_APP = 6;
+var FILE_SAVER_APP = 7;
+var HEALTH_CARE_APP = 8;
+
+var q = "'";
+var c = ",";

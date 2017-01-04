@@ -18,7 +18,8 @@
 <body>
 
 	<h3 class="text-center">
-		<img alt="" src="images/logo.png" width="40"> Lightening Apps
+		<img alt="" src="images/logo.png" width="40" onclick="goHome()"> <span
+			onclick="goHome()">Lightening Apps</span>
 	</h3>
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4 box" style="padding: 30px; height: 500px">
@@ -33,10 +34,11 @@
 			</ul>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="sign-in">
-					<br>
-					<br> <input type="text" id="emailId" class="form-control"
+					<br> <br> <input type="text" id="emailId"
+						class="form-control" value="testuser15256@gmail.com"
 						placeholder="Email ID" /> <br> <input type="password"
-						id="password" class="form-control" placeholder="Password" /> <br>
+						id="password" class="form-control" placeholder="Password"
+						value="android" /> <br>
 					<button class="btn btn-primary bold"
 						style="float: right; margin-left: 25px" onclick="login()">LOGIN</button>
 				</div>

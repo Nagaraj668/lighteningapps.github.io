@@ -20,7 +20,8 @@
 	<div class="container">
 
 		<h3 class="text-center">
-			<img alt="" src="images/logo.png" width="40"> Lightening Apps
+			<img alt="" src="images/logo.png" width="40" onclick="goHome()"> <span
+				onclick="goHome()">Lightening Apps</span>
 		</h3>
 
 		<div class="text-center" id="yet-to-login">
@@ -28,67 +29,78 @@
 				onclick="onAuthenticateClicked()">Login / Register</p>
 		</div>
 
-		<div class="text-center" id="logged-in" onclick="profileClicked()">
-			<img alt="" src="images/ic_person_black_24dp_2x.png"
-				onclick="profileClicked()" id="profilePhoto" width="40"> <span
-				class="bold text-primary" id="displayName"
-				onclick="profileClicked()"></span>
+		<div class="text-center" id="logged-in">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img alt="" src="images/ic_person_black_24dp_2x.png" class=""
+						id="profilePhoto" width="40"> <span
+						class="bold text-primary" id="displayName"
+						onclick="profileClicked()"></span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="profile.html">Profile</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#" onclick="signOut()">Logout</a></li>
+				</ul>
+			</div>
 		</div>
+
 
 		<br> <br>
 
 		<div class="row">
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center" onclick="onAppClicked(1)">
 					<br> <img alt="" src="images/chat-icon.png" width="125"
 						height="125"> <br> <br>
 					<div class="app-name-label bold text-warning">Chat</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center" onclick="onAppClicked(2)">
 					<br> <img alt="" src="images/cows-bulls-logo.jpg" width="125"
 						height="125"> <br> <br>
 					<div class="app-name-label bold text-default">cows and bulls</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center">
 					<br> <img alt="" src="images/hand-cricket-logo.png"
 						width="125" height="125"> <br> <br>
 					<div class="app-name-label bold text-warning">hand cricket</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center">
 					<br> <img alt="" src="images/notes-logo.png" width="125"
 						height="125"> <br> <br>
 					<div class="app-name-label bold text-info">notes</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center">
 					<br> <img alt="" src="images/quiz-logo.png" width="125"
 						height="125"> <br> <br>
 					<div class="app-name-label bold text-danger">quiz</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center">
 					<br> <img alt="" src="images/pink-question-mark-logo.png"
 						width="125" height="125"> <br> <br>
 					<div class="app-name-label bold text-primary">clear doubts</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center">
 					<br> <img alt="" src="images/folder-logo.png" width="125"
 						height="125"> <br> <br>
 					<div class="app-name-label bold text-default">file saver</div>
 				</div>
 			</div>
 			<div class="col-sm-4 col-md-3">
-				<div class="box-1" align="center">
+				<div class="box-1 margin-20" align="center">
 					<br> <img alt="" src="images/heart-beat-icon.png" width="125"
 						height="125"> <br> <br>
 					<div class="app-name-label bold text-info">health care</div>
