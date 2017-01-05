@@ -79,7 +79,7 @@ function startGame() {
 			'members' : [ uid, selectedPlayerUID ],
 			'status' : {
 				'statusCode' : GAME_CREATED,
-				'statusMessage' : IN_PROGRESS
+				'statusMessage' : WAITING_FOR_ACCEPT
 			}
 		};
 		firebase.database().ref().child('games').push().set(game);
@@ -88,6 +88,35 @@ function startGame() {
 	} else {
 		A("Please enter valid word");
 	}
+}
+
+function isMemberOfGame(game) {
+	var flag = false;
+	var members = game.members;
+	
+	L(J(members));
+	L(hasItemInArray(members, uid));
+	
+	if (hasItemInArray(members, uid)) {
+		flag = true;
+	}
+	return flag;
+}
+
+var gamesRef = firebase.database().ref().child('games');
+gamesRef.on('child_added', function(data) {
+	if (isMemberOfGame(data.val())) {
+		updateRecentGames(data.val());
+	}
+});
+
+function updateRecentGames(game) {
+	var gameHtml = '<a href="#" class="list-group-item recent-game-item">'
+			+ '<h4 class="list-group-item-heading">'
+			+ '<img alt="" src="images/ic_person_black_24dp_2x.png"'
+			+ 'width="30" height="30">'+game.createdBy.displayName+'</h4>'
+			+ '<p class="list-group-item-text">'+game.status.statusMessage+'</p></a>';
+	$('#recent-games-itme-group').append(gameHtml);
 }
 
 var selectedPlayerUID;

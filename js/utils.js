@@ -71,7 +71,7 @@ function nav(path) {
 	window.location.href = path;
 }
 
-function E(msg){
+function E(msg) {
 	L(msg);
 }
 
@@ -83,7 +83,6 @@ var AuthType = {
 };
 
 function validateWord(word) {
-	A(checkDuplicate(word));
 	var flag = false;
 	if (word != null && word != undefined && word.length == 4
 			&& !checkDuplicate(word)) {
@@ -142,7 +141,7 @@ function getShortDate() {
 
 function isDefined(obj) {
 	var flag = false;
-	if(obj != undefined && obj != null){
+	if (obj != undefined && obj != null) {
 		flag = true;
 	}
 	return flag;
@@ -156,6 +155,41 @@ function goHome() {
 	nav("index.html");
 }
 
+var contains = function(needle) {
+	// Per spec, the way to identify NaN is that it is not equal to itself
+	var findNaN = needle !== needle;
+	var indexOf;
+
+	if (!findNaN && typeof Array.prototype.indexOf === 'function') {
+		indexOf = Array.prototype.indexOf;
+	} else {
+		indexOf = function(needle) {
+			var i = -1, index = -1;
+
+			for (i = 0; i < this.length; i++) {
+				var item = this[i];
+
+				if ((findNaN && item !== item) || item === needle) {
+					index = i;
+					break;
+				}
+			}
+
+			return index;
+		};
+	}
+
+	return indexOf.call(this, needle) > -1;
+};
+
+function hasItemInArray(array, item) {
+	for (var i = 0; i < array.length; i++) {
+		if (item == array[i]) {
+			return true
+		}
+	}
+	return false;
+}
 // constants
 
 var INDEX_PAGE = "index.html";
@@ -174,3 +208,4 @@ var c = ",";
 
 var GAME_CREATED = 1;
 var IN_PROGRESS = "In Progress";
+var WAITING_FOR_ACCEPT = "Waiting for acceptance";
