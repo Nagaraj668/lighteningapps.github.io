@@ -40,15 +40,23 @@ var allPlayers = [];
 function playerAdded(data) {
 	allPlayers.push(data);
 	var playerHtml = '<div class="col-sm-4 col-md-3">'
-			+ '<div class="box-1 padding-sm" align="center"><span class="bold" onclick="playerSelected('
+			+ '<div class="box-1 padding-sm" align="center"><br><span class="bold" onclick="playerSelected('
 			+ q + data.key + q + c + q + data.val().displayName + q + c + q
 			+ data.val().email + q + c + q + data.val().photoURL + q + ')">'
 			+ data.val().displayName + '</span><br><br><img alt="" src="'
-			+ data.val().photoURL + '" width="100" height="100"></div>'
+			+ data.val().photoURL + '" width="100" height="100"><br><br></div>'
 			+ '</div>';
 	$('#players').append(playerHtml);
 }
 
 function playerSelected(uid, name, email, photoUrl) {
+	var word = $("#word").val();
+	var game = {
+		'word' : word,
+		'name' : name,
+		'email' : email,
+		'photoURL' : photoUrl
+	};
 	
+	firebase.database().ref().child('games').push().set(game);
 }
