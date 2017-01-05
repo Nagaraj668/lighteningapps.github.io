@@ -37,8 +37,8 @@
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<img alt="" src="images/ic_person_black_24dp_2x.png" class=""
 							id="profilePhoto" width="40"> <span
-							class="bold text-primary" id="displayName"
-							onclick="profileClicked()"></span> <span class="caret"></span>
+							class="bold text-primary" id="displayName"></span> <span
+							class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
 						<li><a href="profile.html">Profile</a></li>
@@ -81,14 +81,8 @@
 						<div role="tabpanel" class="tab-pane fade" id="start-new-game">
 							<br>
 							<div class="row">
-								<div class="col-sm-4">
-									<p>Think a four letter word and enter below</p>
-									<input type="text" class="form-control caps text-center"
-										maxlength="4" id="word" placeholder="My word">
-								</div>
-								<div class="col-sm-8"></div>
 								<div class="col-sm-12">
-									<p>Select Player</p>
+									<p class="bold">Select Player</p>
 									<div class="btn-group" role="group" aria-label="...">
 										<button type="button" class="btn btn-default  btn-tab"
 											onclick="tabClicked(this)">RECENT</button>
@@ -116,6 +110,33 @@
 					</div>
 				</div>
 
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="getWordModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">ENTER YOUR WORD</h4>
+				</div>
+				<div class="modal-body">
+					<p class="text-primary">Think and enter your 4 letter word</p>
+					<input type="text" class="caps form-control"
+						placeholder="Your word" maxlength="4" id="word-modal"
+						onkeypress="onWordEntered(event)">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+					<button type="button" class="btn btn-primary" onclick="startGame()">START
+						GAME</button>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -83,6 +83,7 @@ var AuthType = {
 };
 
 function validateWord(word) {
+	A(checkDuplicate(word));
 	var flag = false;
 	if (word != null && word != undefined && word.length == 4
 			&& !checkDuplicate(word)) {
@@ -170,3 +171,6 @@ var HEALTH_CARE_APP = 8;
 
 var q = "'";
 var c = ",";
+
+var GAME_CREATED = 1;
+var IN_PROGRESS = "In Progress";
