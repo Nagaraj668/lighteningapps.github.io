@@ -87,5 +87,42 @@ class GameController {
 		$this->db->close();
 		return 200;
 	}
+	function newGame($request){
+		$query = "insert into new_game (game_id, word1, word2) values('" . $request['gameId'] . "','" . $request ['word1'] . "', '" . $request ['word2'] . "')";
+		$response = $this->db->executeDML ( $query );
+		if ($response != 1) {
+			$response = 0;
+		} else {
+			$response = 200;
+		}
+		$this->db->close ();
+		return $response;
+	}
+	
+	function accept($request){
+		$query = "update new_game set word2 = '" . $request['word2'] . "' where game_id ='". $request ['gameId'] . "'";
+		echo $query;
+		$response = $this->db->executeDML ( $query );
+		if ($response == 1) {
+			$response = 200;
+		} else {
+			$response = 0;
+		}
+		$this->db->close ();
+		return $response;
+	}
+	
+	function attempt($request){
+		$query = "select word".$request['type']." from new_game where game_id = '" . $request['gameId'] . "'";
+		$result = $this->db->executeDRL ( $query );
+		if ($result->num_rows > 0) {
+			$this->db->close ();
+			return 200;
+		} else {
+			$this->db->close ();
+			return 0;
+		}
+	}
+	
 }
 ?>

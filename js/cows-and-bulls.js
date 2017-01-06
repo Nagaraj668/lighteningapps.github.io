@@ -69,58 +69,67 @@ function onWordEntered(event) {
 
 function startGame() {
 	if (validateWord($('#word-modal').val())) {
-		A(selectedPlayerUID);
-		var members = {};
-		members['' + uid] = {
-			'word' : $('#word-modal').val()
-		};
-
-		members['' + selectedPlayerUID] = {
-			'word' : TO_BE_FILLED
-		};
-
-		var game = {
-			'createdBy' : {
-				'displayName' : thisUser.displayName,
-				'photoURL' : thisUser.photoURL,
-				'email' : thisUser.email,
-				'uid' : thisUser.uid
-			},
-			'members' : members,
-			'status' : {
-				'statusCode' : GAME_CREATED,
-				'statusMessage' : selectedPlayerName + " has to join the game"
-			}
-		};
-
 		SL("Validating word");
-		$
-				.get(
-						{
-							url : BASE_URL + "valid-word.php",
-							data : "word=" + word.toLowerCase()
-						}, function(data) {
-							if (data == 1) {
-								HL();
-								$('#choose-word').hide();
-								$("#choose-player").show();
-								$("#wordWrapper").prop("disabled", true);
-								onGlobalFriendsShown2();
-							} else if (data == 0) {
-								HL();
-								A("Please enter valid word");
-								$('#word').val("");
-								$('#word').focus();
+		$.get({
+			url : BASE_URL + "valid-word.php",
+			data : "word=" + $('#word-modal').val()
+		}, function(data) {
+			if (data == 1) {
+				HL();
+				var members = {};
+				members['' + uid] = {
+					'word' : $('#word-modal').val()
+				};
 
-							}
-						});
+				members['' + selectedPlayerUID] = {
+					'word' : TO_BE_FILLED
+				};
 
-		firebase.database().ref().child('games').push().set(game);
-		$('#getWordModal').modal('hide');
+				var game = {
+					'createdBy' : {
+						'displayName' : thisUser.displayName,
+						'photoURL' : thisUser.photoURL,
+						'email' : thisUser.email,
+						'uid' : thisUser.uid
+					},
+					'members' : members,
+					'status' : {
+						'statusCode' : GAME_CREATED,
+						'statusMessage' : selectedPlayerName
+								+ " has to join the game"
+					}
+				};
+				var gameId = gamesRef.push().key;
+				game.gameId = gameId;
+				gamesRef.child(gameId).set(game);
+
+				var request = {
+					'gameId' : gameId,
+					'word1' : $('#word-modal').val(),
+					'word2' : ''
+				};
+
+				createGameOnServer(request);
+
+				$('#getWordModal').modal('hide');
+			} else if (data == 0) {
+				HL();
+				A("Please enter valid word");
+			}
+		});
 		return false;
 	} else {
 		A("Please enter valid word");
 	}
+}
+
+function createGameOnServer(request) {
+	$.post(BASE_URL + "start-game.php", J(request), function(data, status) {
+		if (data == 200) {
+			A('Success! Game created and waiting for your friend\'s approval');
+			playerType = 2;
+		}
+	});
 }
 
 function isMemberOfGame(game) {
@@ -151,15 +160,17 @@ function updateRecentGameStatus(game, gameId) {
 }
 
 function updateRecentGames(game, gameId) {
-	var gameHtml = '<a href="#" class="list-group-item ' + gameId
-			+ ' recent-game-item" onclick="onGameSelected(' + q + gameId + q
-			+ ', this)">' + '<h4 class="list-group-item-heading">'
-			+ '<img alt="" src="images/ic_person_black_24dp_2x.png"'
-			+ 'width="30" height="30">' + game.createdBy.displayName + '</h4>'
-			+ '<p class="list-group-item-text">' + game.status.statusMessage
-			+ '</p></a>';
-	$('#recent-games-itme-group').prepend(gameHtml);
-	$('.recent-game-item:last-child').trigger('click');
+	getTempOpponentObject(game, function(data) {
+		var gameHtml = '<a href="#" class="list-group-item ' + gameId
+				+ ' recent-game-item" onclick="onGameSelected(' + q + gameId
+				+ q + ', this)">' + '<h4 class="list-group-item-heading">'
+				+ '<img alt="" src="images/ic_person_black_24dp_2x.png"'
+				+ 'width="30" height="30">' + data.val().displayName
+				+ '</h4>' + '<p class="list-group-item-text">'
+				+ game.status.statusMessage + '</p></a>';
+		$('#recent-games-itme-group').prepend(gameHtml);
+		$('.recent-game-item:last-child').trigger('click');
+	});
 }
 
 $(document).ready(function() {
@@ -171,6 +182,7 @@ var currentGame;
 var currentGameRef;
 var myAttemptCount = 0;
 var opponentAttemptCount = 0;
+var playerType;
 
 function onGameSelected(gameId, element) {
 	$('.recent-game-item').removeClass('active');
@@ -204,15 +216,28 @@ function onGameSelected(gameId, element) {
 								currentGameRef.child('attempts').child(
 										currentOpponent.uid).on('child_added',
 										function(data) {
-											myAttemptCount++;
+											onAttemptAdded(data);
 										});
 							});
+							if (currentGame.createdBy.uid == uid) {
+								playerType = 2;
+							} else {
+								playerType = 1;
+							}
 							currentGameRef.child('attempts').child(uid).on(
 									'child_added', function(data) {
 										opponentAttemptCount++;
 									});
 						}
 					});
+}
+
+function onAttemptAdded(attempt) {
+	var attemptHtml = '<div><div class="col-sm-4 padding-sm">' + attempt.word
+			+ '</div>' + '<div class="col-sm-4 padding-sm">' + attempt.cows
+			+ '</div>' + '<div class="col-sm-4 padding-sm">' + attempt.bulls
+			+ '</div></div>';
+	$('#attempt-list').prepend(attemptHtml);
 }
 
 var currentOpponent;
@@ -230,6 +255,18 @@ function getOpponentObject(callback) {
 	}
 }
 
+function getTempOpponentObject(game, callback) {
+	var members = game.members;
+	var uids = Object.keys(members);
+	for (var i = 0; i < uids.length; i++) {
+		if (uids[i] != uid) {
+			usersRef.child(uids[i]).once('value').then(function(data) {
+				callback(data);
+			});
+		}
+	}
+}
+
 function onWordEnteredByOpponent(event) {
 	if (event.which == 13 || event.keyCode == 13) {
 		if (validateWord($('#word-opponent').val())) {
@@ -239,7 +276,7 @@ function onWordEnteredByOpponent(event) {
 					GAME_IN_PROGRESS);
 			currentGameRef.child('status').child('statusMessage').set(
 					IN_PROGRESS);
-			
+			acceptGame($('#word-opponent').val());
 			$('#opponent-word-panel').hide();
 			$('#game-panel').show();
 			return false;
@@ -250,15 +287,41 @@ function onWordEnteredByOpponent(event) {
 	return true;
 }
 
+function acceptGame(word) {
+	$.post(BASE_URL + 'accept.php', J({
+		'gameId' : currentGame.gameId+'',
+		'word2' : word
+	}), function(data, status) {
+		A(data);
+		if (data == 200) {
+			playerType = 1;
+			A('Success! You accepted game');
+		}
+	});
+}
+
 function onWordEnteredForGuess(event) {
 	if (event.which == 13 || event.keyCode == 13) {
 		if (validateWord($('#word-for-guess').val())) {
-
+			attempt($('#word-for-guess').val());
 		} else {
 			A("Please enter valid word");
 		}
 	}
 	return true;
+}
+
+function attempt(word) {
+	var request = {
+		'word' : word,
+		'type' : playerType,
+		'gameId' : currentGame.gameId
+	};
+	$.post(BASE_URL + 'attempts.php', J(request), function(data, status) {
+		if(data==200){
+			
+		}
+	});
 }
 
 var selectedPlayerUID;

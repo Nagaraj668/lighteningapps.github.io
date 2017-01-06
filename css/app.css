@@ -125,3 +125,7 @@ button {
 .margin-20 {
 	margin: 20px;
 }
+.attempt-list{
+	height: 500px;
+	overflow: scroll;
+}

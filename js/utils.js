@@ -192,7 +192,7 @@ function hasItemInArray(array, item) {
 }
 // constants
 
-var BASE_URL = "http://localhost/lightening-apps/server/";
+var BASE_URL = "http://localhost/lighteningapps/server/";
 
 var INDEX_PAGE = "index.html";
 

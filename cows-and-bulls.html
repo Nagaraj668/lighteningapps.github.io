@@ -113,18 +113,41 @@
 												<div class="tab-content">
 													<div role="tabpanel" class="tab-pane fade in active"
 														id="mine">
+														<br>
 														<div class="row">
 															<div class="col-sm-4">
-																<input type="text" class="caps form-control"
-																	placeholder="Your word" maxlength="4"
-																	id="word-for-guess"
-																	onkeypress="onWordEnteredForGuess(event)">
+																<div class="input-group">
+																	<input type="text" class="caps form-control"
+																		placeholder="Your word" maxlength="4"
+																		id="word-for-guess"
+																		onkeypress="onWordEnteredForGuess(event)"> <span
+																		class="input-group-btn">
+																		<button class="btn btn-success bold">OK</button>
+																	</span>
+																</div>
+															</div>
+															<div class="col-sm-12" style="margin-top: 10px">
+																<div class="row">
+																	<div class="col-sm-6 text-center">
+																		<div id="cows-bulls-header">
+																			<div class="box col-sm-4 bg-info padding-sm">Guess</div>
+																			<div class="box col-sm-4 bg-danger padding-sm">Cows</div>
+																			<div class="box col-sm-4 bg-success padding-sm">Bulls</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-sm-6 text-center attempt-list" id="attempt-list">
+																		
+																	</div>
+																</div>
 															</div>
 														</div>
 
 													</div>
-													<div role="tabpanel" class="tab-pane fade" id="his"></div>
-													<div role="tabpanel" class="tab-pane fade" id="filter"></div>
+													<div role="tabpanel" class="tab-pane fade" id="his">opponent
+														guess</div>
+													<div role="tabpanel" class="tab-pane fade" id="filter">filter</div>
 												</div>
 											</div>
 										</div>

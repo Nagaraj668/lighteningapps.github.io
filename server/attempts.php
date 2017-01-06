@@ -5,8 +5,8 @@ $jsonString = json_decode ( file_get_contents ( 'php://input' ), true );
 
 $gameController = new GameController ();
 
-$startGameResponse = $gameController->newGame ( $jsonString );
+$startGameResponse = $gameController->attempt ( $jsonString );
 
-echo $startGameResponse;
+echo 200;
 
 ?>
