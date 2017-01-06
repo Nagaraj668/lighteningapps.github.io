@@ -39,7 +39,8 @@ function tabClicked(element) {
 	$(element).addClass('btn-primary');
 }
 
-firebase.database().ref('users').on('child_added', function(data) {
+var usersRef = firebase.database().ref('users');
+usersRef.on('child_added', function(data) {
 	if (data.key != uid)
 		playerAdded(data);
 });
@@ -68,6 +69,16 @@ function onWordEntered(event) {
 
 function startGame() {
 	if (validateWord($('#word-modal').val())) {
+		A(selectedPlayerUID);
+		var members = {};
+		members['' + uid] = {
+			'word' : $('#word-modal').val()
+		};
+
+		members['' + selectedPlayerUID] = {
+			'word' : TO_BE_FILLED
+		};
+
 		var game = {
 			'createdBy' : {
 				'displayName' : thisUser.displayName,
@@ -75,13 +86,35 @@ function startGame() {
 				'email' : thisUser.email,
 				'uid' : thisUser.uid
 			},
-			'word' : $('#word-modal').val(),
-			'members' : [ uid, selectedPlayerUID ],
+			'members' : members,
 			'status' : {
 				'statusCode' : GAME_CREATED,
-				'statusMessage' : WAITING_FOR_ACCEPT
+				'statusMessage' : selectedPlayerName + " has to join the game"
 			}
 		};
+
+		SL("Validating word");
+		$
+				.get(
+						{
+							url : BASE_URL + "valid-word.php",
+							data : "word=" + word.toLowerCase()
+						}, function(data) {
+							if (data == 1) {
+								HL();
+								$('#choose-word').hide();
+								$("#choose-player").show();
+								$("#wordWrapper").prop("disabled", true);
+								onGlobalFriendsShown2();
+							} else if (data == 0) {
+								HL();
+								A("Please enter valid word");
+								$('#word').val("");
+								$('#word').focus();
+
+							}
+						});
+
 		firebase.database().ref().child('games').push().set(game);
 		$('#getWordModal').modal('hide');
 		return false;
@@ -93,11 +126,7 @@ function startGame() {
 function isMemberOfGame(game) {
 	var flag = false;
 	var members = game.members;
-	
-	L(J(members));
-	L(hasItemInArray(members, uid));
-	
-	if (hasItemInArray(members, uid)) {
+	if (members.hasOwnProperty(uid)) {
 		flag = true;
 	}
 	return flag;
@@ -106,22 +135,137 @@ function isMemberOfGame(game) {
 var gamesRef = firebase.database().ref().child('games');
 gamesRef.on('child_added', function(data) {
 	if (isMemberOfGame(data.val())) {
-		updateRecentGames(data.val());
+		updateRecentGames(data.val(), data.key);
 	}
 });
 
-function updateRecentGames(game) {
-	var gameHtml = '<a href="#" class="list-group-item recent-game-item">'
-			+ '<h4 class="list-group-item-heading">'
+gamesRef.on('child_changed', function(data) {
+	if (isMemberOfGame(data.val())) {
+		updateRecentGameStatus(data.val(), data.key);
+	}
+});
+
+function updateRecentGameStatus(game, gameId) {
+	$('.' + gameId).find('.list-group-item-text').text(
+			game.status.statusMessage);
+}
+
+function updateRecentGames(game, gameId) {
+	var gameHtml = '<a href="#" class="list-group-item ' + gameId
+			+ ' recent-game-item" onclick="onGameSelected(' + q + gameId + q
+			+ ', this)">' + '<h4 class="list-group-item-heading">'
 			+ '<img alt="" src="images/ic_person_black_24dp_2x.png"'
-			+ 'width="30" height="30">'+game.createdBy.displayName+'</h4>'
-			+ '<p class="list-group-item-text">'+game.status.statusMessage+'</p></a>';
-	$('#recent-games-itme-group').append(gameHtml);
+			+ 'width="30" height="30">' + game.createdBy.displayName + '</h4>'
+			+ '<p class="list-group-item-text">' + game.status.statusMessage
+			+ '</p></a>';
+	$('#recent-games-itme-group').prepend(gameHtml);
+	$('.recent-game-item:last-child').trigger('click');
+}
+
+$(document).ready(function() {
+	$('#opponent-word-panel').hide();
+	$('#game-panel').hide();
+});
+
+var currentGame;
+var currentGameRef;
+var myAttemptCount = 0;
+var opponentAttemptCount = 0;
+
+function onGameSelected(gameId, element) {
+	$('.recent-game-item').removeClass('active');
+	$(element).addClass('active');
+	currentGameRef = firebase.database().ref().child('games').child(gameId);
+	currentGameRef
+			.once('value')
+			.then(
+					function(data) {
+						var gameObj = data.val();
+						currentGame = gameObj;
+						currentGame.gameId = data.key;
+						if (gameObj.members[uid].word == TO_BE_FILLED) {
+							$('#opponent-word-panel').show();
+							$('#game-panel').hide();
+						} else {
+							$('#game-panel').show();
+							$('#opponent-word-panel').hide();
+							myAttemptCount = 0;
+							$('#my-attempt').html(
+									"My Attempts: <span class='bold' id='my-attempt-count'>"
+											+ myAttemptCount + "</span>");
+							getOpponentObject(function() {
+								L(J(currentOpponent));
+								$('#opponent-attempt')
+										.html(
+												currentOpponent.displayName
+														+ ": <span class='bold' id='opponent-attempt-count'>"
+														+ myAttemptCount
+														+ "</span>");
+								currentGameRef.child('attempts').child(
+										currentOpponent.uid).on('child_added',
+										function(data) {
+											myAttemptCount++;
+										});
+							});
+							currentGameRef.child('attempts').child(uid).on(
+									'child_added', function(data) {
+										opponentAttemptCount++;
+									});
+						}
+					});
+}
+
+var currentOpponent;
+function getOpponentObject(callback) {
+	var members = currentGame.members;
+	var uids = Object.keys(members);
+	for (var i = 0; i < uids.length; i++) {
+		if (uids[i] != uid) {
+			usersRef.child(uids[i]).once('value').then(function(data) {
+				currentOpponent = data.val();
+				currentOpponent.uid = data.key;
+				callback();
+			});
+		}
+	}
+}
+
+function onWordEnteredByOpponent(event) {
+	if (event.which == 13 || event.keyCode == 13) {
+		if (validateWord($('#word-opponent').val())) {
+			currentGameRef.child('members').child(uid).child('word').set(
+					$('#word-opponent').val());
+			currentGameRef.child('status').child('statusCode').set(
+					GAME_IN_PROGRESS);
+			currentGameRef.child('status').child('statusMessage').set(
+					IN_PROGRESS);
+			
+			$('#opponent-word-panel').hide();
+			$('#game-panel').show();
+			return false;
+		} else {
+			A("Please enter valid word");
+		}
+	}
+	return true;
+}
+
+function onWordEnteredForGuess(event) {
+	if (event.which == 13 || event.keyCode == 13) {
+		if (validateWord($('#word-for-guess').val())) {
+
+		} else {
+			A("Please enter valid word");
+		}
+	}
+	return true;
 }
 
 var selectedPlayerUID;
+var selectedPlayerName;
 
-function playerSelected(uidParam) {
+function playerSelected(uidParam, name) {
 	selectedPlayerUID = uidParam;
+	selectedPlayerName = name;
 	$('#getWordModal').modal('show');
 }

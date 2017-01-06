@@ -192,6 +192,8 @@ function hasItemInArray(array, item) {
 }
 // constants
 
+var BASE_URL = "http://localhost/lightening-apps/server/";
+
 var INDEX_PAGE = "index.html";
 
 var CHAT_APP = 1;
@@ -207,5 +209,8 @@ var q = "'";
 var c = ",";
 
 var GAME_CREATED = 1;
+var GAME_IN_PROGRESS = 2;
+
 var IN_PROGRESS = "In Progress";
 var WAITING_FOR_ACCEPT = "Waiting for acceptance";
+var TO_BE_FILLED = "To be filled";

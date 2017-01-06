@@ -49,7 +49,12 @@ function onAppClicked(APP_CODE) {
 		break;
 	}
 	case COWS_AND_BULLS_APP: {
-		nav("cows-and-bulls.html");
+		if (isUndefined(thisUser)) {
+			localStorage.redirectTo = "cows-and-bulls.html";
+			nav("authenticate.html");
+		} else {
+			nav("cows-and-bulls.html");
+		}
 		break;
 	}
 	case HAND_CRICKET_APP: {

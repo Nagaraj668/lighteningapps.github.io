@@ -79,13 +79,56 @@
 							<br>
 							<div class="row">
 								<div class="col-sm-4">
-									<div class="list-group" id="recent-games-itme-group">
-										
-									</div>
+									<div class="list-group" id="recent-games-itme-group"></div>
 								</div>
 								<div class="col-sm-8">
 									<!-- Game content -->
-									<div class="alert alert-success">Games start here....</div>
+									<div class="row" id="opponent-word-panel">
+										<div class="col-sm-4">
+											<p class="text-primary">Think and enter your 4 letter
+												word</p>
+											<input type="text" class="caps form-control"
+												placeholder="Your word" maxlength="4" id="word-opponent"
+												onkeypress="onWordEnteredByOpponent(event)">
+										</div>
+									</div>
+
+									<div id="game-panel" class="row">
+										<div class="col-sm-12">
+											<div>
+												<!-- Nav tabs -->
+												<ul class="nav nav-tabs" role="tablist">
+													<li role="presentation" class="active"><a href="#mine"
+														aria-controls="mine" role="tab" data-toggle="tab"
+														id="my-attempt"></a></li>
+													<li role="presentation"><a href="#his"
+														aria-controls="his" role="tab" data-toggle="tab"
+														id="opponent-attempt"></a></li>
+													<li role="presentation"><a href="#filter"
+														aria-controls="filter" role="tab" data-toggle="tab"
+														id="opponent-attempt">Filter Letters</a></li>
+												</ul>
+
+												<!-- Tab panes -->
+												<div class="tab-content">
+													<div role="tabpanel" class="tab-pane fade in active"
+														id="mine">
+														<div class="row">
+															<div class="col-sm-4">
+																<input type="text" class="caps form-control"
+																	placeholder="Your word" maxlength="4"
+																	id="word-for-guess"
+																	onkeypress="onWordEnteredForGuess(event)">
+															</div>
+														</div>
+
+													</div>
+													<div role="tabpanel" class="tab-pane fade" id="his"></div>
+													<div role="tabpanel" class="tab-pane fade" id="filter"></div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
