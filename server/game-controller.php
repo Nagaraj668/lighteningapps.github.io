@@ -1,5 +1,7 @@
 <?php
 include 'db-executor.php';
+require_once('rest.inc.php');
+
 class GameController {
 	var $db;
 	function __construct() {
@@ -116,6 +118,26 @@ class GameController {
 		$query = "select word".$request['type']." from new_game where game_id = '" . $request['gameId'] . "'";
 		$result = $this->db->executeDRL ( $query );
 		if ($result->num_rows > 0) {
+			$targetWord = "";
+			$index = "word".$request['type'];
+			$guessedWord = $request['word1'];
+			$bulls = 0;
+			$cows = 0;
+			while($row = $result->fetch_assoc()) {
+				$word = $row[$index];
+			}
+			for ($i = 0; $i < strlen($targetWord); $i++) {
+				for ($j = 0; $j < strlen(guessedWord); $j++) {
+					if ($targetWord[i] == $guessedWord[j] && $i == $j) {
+						$bulls++;
+					} else if ($targetWord[i] == $guessedWord[j]
+							&& $i != $j) {
+								$cows++;
+							}
+				}
+			}
+			$result = RestCurl::post("https://fir-example-ac064.firebaseio.com/games/" . $request['gameId'] ."/attempts/".$request['uid'].".json", 
+					array('word' => $request['word'], 'cows' => $cows, 'bulls' => $bulls));
 			$this->db->close ();
 			return 200;
 		} else {
@@ -123,6 +145,5 @@ class GameController {
 			return 0;
 		}
 	}
-	
 }
 ?>

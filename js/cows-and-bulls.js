@@ -169,7 +169,7 @@ function updateRecentGames(game, gameId) {
 				+ '</h4>' + '<p class="list-group-item-text">'
 				+ game.status.statusMessage + '</p></a>';
 		$('#recent-games-itme-group').prepend(gameHtml);
-		$('.recent-game-item:last-child').trigger('click');
+		//$('.recent-game-item:last-child').trigger('click');
 	});
 }
 
@@ -216,7 +216,7 @@ function onGameSelected(gameId, element) {
 								currentGameRef.child('attempts').child(
 										currentOpponent.uid).on('child_added',
 										function(data) {
-											onAttemptAdded(data);
+											opponentAttemptCount++;a
 										});
 							});
 							if (currentGame.createdBy.uid == uid) {
@@ -226,7 +226,7 @@ function onGameSelected(gameId, element) {
 							}
 							currentGameRef.child('attempts').child(uid).on(
 									'child_added', function(data) {
-										opponentAttemptCount++;
+										onAttemptAdded(data.val());
 									});
 						}
 					});
@@ -315,11 +315,12 @@ function attempt(word) {
 	var request = {
 		'word' : word,
 		'type' : playerType,
-		'gameId' : currentGame.gameId
+		'gameId' : currentGame.gameId,
+		'uid' : uid
 	};
 	$.post(BASE_URL + 'attempts.php', J(request), function(data, status) {
 		if(data==200){
-			
+			A('success');
 		}
 	});
 }
